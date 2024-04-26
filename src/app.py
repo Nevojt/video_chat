@@ -23,7 +23,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
+@app.get("/meet")
 def home(): # type: ignore
     return RedirectResponse("/lobby")
 
