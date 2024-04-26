@@ -24,7 +24,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/meet")
+@app.get("/video")
 def hello():
     return {"message": "Hello World"}
 
@@ -40,7 +40,7 @@ def read_root(request: Request, roomName:str):
 def get_lobby(request: Request):
     return templates.TemplateResponse(request=request, name="lobby.html")
 
-@app.websocket("/ws/{client_id}")
+@app.websocket("/meet/{client_id}")
 async def connet_websocket(websocket: WebSocket, client_id: str):
     await meeting_manager.join(client_id, websocket)
     try:
