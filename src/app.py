@@ -24,7 +24,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/hello")
+@app.get("/meet")
 def hello():
     return {"message": "Hello World"}
 
