@@ -8,11 +8,6 @@ from .signaling import MeetingManager
 
 
 app = FastAPI(
-    root_path="/meet",
-    title="Meeting Room",
-    description="A simple meeting room",
-    version="1.0.0",
-    docs_url="/docs",
 )
 
 app.mount("/static", staticfiles.StaticFiles(directory="src/front-end"), name="static")
@@ -28,6 +23,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/hello")
+def hello():
+    return {"message": "Hello World"}
 
 @app.get("/")
 def home(): # type: ignore
