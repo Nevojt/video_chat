@@ -36,12 +36,12 @@ def read_root(request: Request, roomName:str):
 def get_lobby(request: Request):
     return templates.TemplateResponse(request=request, name="lobby.html")
 
-@app.websocket("/video_ws/{client_id}")
-async def connet_websocket(websocket: WebSocket, client_id: str):
-    await meeting_manager.join(client_id, websocket)
-    try:
-        while True:
-            data = await websocket.receive_json()
-            await meeting_manager.rooms[client_id].broadcast(data, websocket)
-    except WebSocketDisconnect:
-        meeting_manager.leave(client_id, websocket)
+# @app.websocket("/ws/{client_id}")
+# async def connet_websocket(websocket: WebSocket, client_id: str):
+#     await meeting_manager.join(client_id, websocket)
+#     try:
+#         while True:
+#             data = await websocket.receive_json()
+#             await meeting_manager.rooms[client_id].broadcast(data, websocket)
+#     except WebSocketDisconnect:
+#         meeting_manager.leave(client_id, websocket)
