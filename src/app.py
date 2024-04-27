@@ -10,11 +10,11 @@ from .signaling import MeetingManager
 app = FastAPI(
 )
 
-# app.mount("/static", staticfiles.StaticFiles(directory="src/front-end"), name="static")
-# templates = Jinja2Templates(directory="src/templates")
+app.mount("/static", staticfiles.StaticFiles(directory="src/front-end"), name="static")
+templates = Jinja2Templates(directory="src/templates")
 
 
-# meeting_manager = MeetingManager()
+meeting_manager = MeetingManager()
 
 app.add_middleware(
     CORSMiddleware,
@@ -24,28 +24,28 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
+@app.get("/hello")
 def hello():
     return {"message": "Hello World"}
 
-# @app.get("/")
-# def home(): # type: ignore
-#     return RedirectResponse("/lobby")
+@app.get("/")
+def home(): # type: ignore
+    return RedirectResponse("/lobby")
 
-# @app.get("/room/{roomName}")
-# def read_root(request: Request, roomName:str):
-#     return templates.TemplateResponse(request=request, name="index.html")
+@app.get("/room/{roomName}")
+def read_root(request: Request, roomName:str):
+    return templates.TemplateResponse(request=request, name="index.html")
 
-# @app.get("/lobby")
-# def get_lobby(request: Request):
-#     return templates.TemplateResponse(request=request, name="lobby.html")
+@app.get("/lobby")
+def get_lobby(request: Request):
+    return templates.TemplateResponse(request=request, name="lobby.html")
 
-# @app.websocket("/ws/{client_id}")
-# async def connet_websocket(websocket: WebSocket, client_id: str):
-#     await meeting_manager.join(client_id, websocket)
-#     try:
-#         while True:
-#             data = await websocket.receive_json()
-#             await meeting_manager.rooms[client_id].broadcast(data, websocket)
-#     except WebSocketDisconnect:
-#         meeting_manager.leave(client_id, websocket)
+@app.websocket("/ws/{client_id}")
+async def connet_websocket(websocket: WebSocket, client_id: str):
+    await meeting_manager.join(client_id, websocket)
+    try:
+        while True:
+            data = await websocket.receive_json()
+            await meeting_manager.rooms[client_id].broadcast(data, websocket)
+    except WebSocketDisconnect:
+        meeting_manager.leave(client_id, websocket)
