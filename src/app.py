@@ -24,23 +24,23 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/hello")
+@app.get("/meet/hello")
 def hello():
     return {"message": "Hello World"}
 
-@app.get("/")
+@app.get("/meet")
 def home(): # type: ignore
     return RedirectResponse("/lobby")
 
-@app.get("/room/{roomName}")
+@app.get("/meet/room/{roomName}")
 def read_root(request: Request, roomName:str):
     return templates.TemplateResponse(request=request, name="index.html")
 
-@app.get("/lobby")
+@app.get("/meet/lobby")
 def get_lobby(request: Request):
     return templates.TemplateResponse(request=request, name="lobby.html")
 
-@app.websocket("/ws/{client_id}")
+@app.websocket("/meet/ws/{client_id}")
 async def connet_websocket(websocket: WebSocket, client_id: str):
     await meeting_manager.join(client_id, websocket)
     try:
