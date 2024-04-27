@@ -32,7 +32,7 @@ def hello():
 def home(): # type: ignore
     return RedirectResponse("/lobby")
 
-@app.get("/meet/room/{roomName}")
+@app.get("/room/{roomName}")
 def read_root(request: Request, roomName:str):
     return templates.TemplateResponse(request=request, name="index.html")
 
