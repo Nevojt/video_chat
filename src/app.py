@@ -8,6 +8,7 @@ from .signaling import MeetingManager
 
 
 app = FastAPI(
+    root_path="/meet"
 )
 
 app.mount("/static", staticfiles.StaticFiles(directory="src/front-end"), name="static")
