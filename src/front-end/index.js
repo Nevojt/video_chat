@@ -16,7 +16,7 @@ let init = async () => {
 
 let connect = async (callback) => {
   let roomName = window.location.pathname.split("/")[1];
-  socket = new WebSocket(`wss://localhost:7777/meet/ws/${roomName}"`);
+  socket = new WebSocket(`wss://cool-chat.club/meet/ws/${roomName}"`);
   socket.onopen = async (_) =>  {
     await callback()
   };
