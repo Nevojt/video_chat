@@ -16,7 +16,7 @@ let init = async () => {
 
 let connect = async (callback) => {
   let roomName = window.location.pathname.split("/")[1];
-  socket = new WebSocket(`ws://localhost:8000/ws/${roomName}"`);
+  socket = new WebSocket(`ws://localhost:7777/ws/${roomName}"`);
   socket.onopen = async (_) =>  {
     await callback()
   };
