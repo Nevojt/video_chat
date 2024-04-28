@@ -29,7 +29,7 @@ def hello():
 
 @app.get("/")
 def home(): # type: ignore
-    return RedirectResponse("/lobby")
+    return RedirectResponse("/meet/lobby")
 
 @app.get("/room/{roomName}")
 def read_root(request: Request, roomName:str):
