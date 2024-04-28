@@ -7,9 +7,7 @@ from fastapi.websockets import WebSocket, WebSocketDisconnect
 from .signaling import MeetingManager
 
 
-app = FastAPI(
-    root_path="/meet"
-)
+app = FastAPI(root_path="/meet")
 
 app.mount("/static", staticfiles.StaticFiles(directory="src/front-end"), name="static")
 templates = Jinja2Templates(directory="src/templates")
