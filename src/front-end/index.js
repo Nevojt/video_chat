@@ -8,7 +8,7 @@ let polite = false
 let init = async () => {
   localStream = await navigator.mediaDevices.getUserMedia({
     video: true,
-    audio: true,
+    audio: { echoCancellation: true }
   });
   document.getElementById("user-1").srcObject = localStream;
   await connect(createAndSendOffer);
