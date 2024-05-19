@@ -42,6 +42,22 @@ def get_lobby(request: Request):
 
 @app.websocket("/ws/{client_id}")
 async def connet_websocket(websocket: WebSocket, client_id: str):
+    """
+    This function is responsible for handling the WebSocket connection for a specific client.
+
+    Parameters:
+    - websocket (WebSocket): The WebSocket instance representing the connection to the client.
+    - client_id (str): A unique identifier for the client.
+
+    The function first joins the client to the meeting manager using the provided client_id and websocket instance.
+    Then, it enters an infinite loop where it continuously receives JSON data from the client using `websocket.receive_json()`.
+    The received data is then broadcasted to all other clients in the same room as the current client using `meeting_manager.rooms[client_id].broadcast(data, websocket)`.
+
+    If the client disconnects, the function catches the `WebSocketDisconnect` exception and calls `meeting_manager.leave(client_id, websocket)` to remove the client from the meeting manager.
+
+    Returns:
+    - None
+    """
     await meeting_manager.join(client_id, websocket)
     try:
         while True:

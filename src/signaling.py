@@ -1,4 +1,6 @@
 from fastapi.websockets import WebSocket
+
+
 class SignalManager:
     def __init__(self):
         self.active_connections: list[WebSocket] = []
